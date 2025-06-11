@@ -1,13 +1,18 @@
 package com.rsbank.account.dto;
 
-import lombok.AllArgsConstructor;
+import com.rsbank.account.constants.AccountsStatus;
+
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class ResponseDTO {
 
-    private String status;
+    private int status;
     private String message;
+
+    public ResponseDTO(AccountsStatus status) {
+        this.status = status.code();
+        this.message = status.message();
+    }
 
 }

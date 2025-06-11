@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/rsbank_accounts
+    url: jdbc:postgresql://127.0.0.1:5432/rsbankaccounts
     username: postgres
     password: root
   jpa:        
