@@ -9,10 +9,10 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ErrorDto {
+public class ErrorResponseDto {
 
     private String apiPath;
-    private HttpStatus httpStatus;
+    private HttpStatus errorCode;
     private String errorMessage;
     private Date timestamp;
 

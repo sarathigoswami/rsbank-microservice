@@ -1,18 +1,18 @@
 package com.rsbank.account.mapper;
 
-import com.rsbank.account.dto.CustomerDTO;
+import com.rsbank.account.dto.CustomerDto;
 import com.rsbank.account.entity.Customer;
 
 public class CustomerMapper {
 
-    public static CustomerDTO mapToCustomerDto(Customer customer, CustomerDTO customerDto) {
+    public static CustomerDto mapToCustomerDto(Customer customer, CustomerDto customerDto) {
         customerDto.setName(customer.getName());
         customerDto.setEmail(customer.getEmail());
         customerDto.setMobileNumber(customer.getMobileNumber());
         return customerDto;
     }
 
-    public static Customer mapToCustomer(CustomerDTO customerDto, Customer customer) {
+    public static Customer mapToCustomer(CustomerDto customerDto, Customer customer) {
         customer.setName(customerDto.getName());
         customer.setEmail(customerDto.getEmail());
         customer.setMobileNumber(customerDto.getMobileNumber());
