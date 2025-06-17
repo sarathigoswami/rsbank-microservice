@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rsbank.account.constants.AccountsStatus;
 import com.rsbank.account.dto.CustomerDto;
 import com.rsbank.account.dto.ResponseDto;
-import com.rsbank.account.service.AccountsService;
+import com.rsbank.account.service.IAccountsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,12 +21,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AccountsController {
 
-    private final AccountsService accountsService;
+    private final IAccountsService iAccountsService;
 
     @PostMapping("create")
     public ResponseEntity<ResponseDto> createAccount(@RequestBody CustomerDto customerDto) {
 
-        accountsService.createAccount(customerDto);
+        iAccountsService.createAccount(customerDto);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)

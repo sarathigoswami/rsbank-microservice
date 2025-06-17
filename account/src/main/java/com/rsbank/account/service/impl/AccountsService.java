@@ -1,4 +1,4 @@
-package com.rsbank.account.service;
+package com.rsbank.account.service.impl;
 
 import java.util.Optional;
 import java.util.Random;
@@ -13,25 +13,27 @@ import com.rsbank.account.exception.CustomerExistsException;
 import com.rsbank.account.mapper.CustomerMapper;
 import com.rsbank.account.repository.AccountsRepository;
 import com.rsbank.account.repository.CustomerRepository;
+import com.rsbank.account.service.IAccountsService;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class AccountsService {
+public class AccountsService implements IAccountsService {
 
     private final CustomerRepository customerRepository;
     private final AccountsRepository accountsRepository;
 
+    @Override
     public void createAccount(CustomerDto customerDto) {
 
         Customer customer = CustomerMapper.mapToCustomer(customerDto, new Customer());
-        Customer savedCustomer = customerRepository.save(customer);
 
-        Optional<Customer> customerOptional = customerRepository.findByMobileNumber(savedCustomer.getMobileNumber());
+        Optional<Customer> customerOptional = customerRepository.findByMobileNumber(customer.getMobileNumber());
         if (customerOptional.isPresent()) {
-            throw new CustomerExistsException("Customer already exists with mobile number " + savedCustomer.getMobileNumber());
+            throw new CustomerExistsException("Customer already exists with mobile number " + customer.getMobileNumber());
         }
+        Customer savedCustomer = customerRepository.save(customer);
         accountsRepository.save(createNewAccount(savedCustomer));
     }
 
