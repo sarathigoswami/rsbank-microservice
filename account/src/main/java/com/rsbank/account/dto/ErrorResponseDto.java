@@ -1,8 +1,9 @@
 package com.rsbank.account.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import org.springframework.http.HttpStatusCode;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.rsbank.account.constants.Literals;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,8 +13,9 @@ import lombok.Data;
 public class ErrorResponseDto {
 
     private String apiPath;
-    private HttpStatusCode errorCode;
+    private Integer errorCode;
     private String errorMessage;
-    private Date timestamp;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Literals.DD_MM_YYYY_HH_MM_SS, timezone = Literals.TZ_KOLKATA)
+    private LocalDateTime timestamp;
 
 }
