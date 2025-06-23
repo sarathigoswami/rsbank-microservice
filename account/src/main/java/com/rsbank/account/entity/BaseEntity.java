@@ -2,6 +2,11 @@ package com.rsbank.account.entity;
 
 import java.util.Date;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -14,16 +19,20 @@ import lombok.ToString;
 @MappedSuperclass
 public class BaseEntity {
 
+    @CreatedBy
     @Column(name = "created_by", length = 10, updatable = false)
     private String createdBy;
 
-    @Column(name = "created_at", updatable = false)
-    private Date createdAt;
+    @CreatedDate
+    @Column(name = "created_date", updatable = false)
+    private Date createdDate;
 
-    @Column(name = "updated_by", length = 10, insertable = false)
+    @LastModifiedBy
+    @Column(name = "updated_by", length = 10)
     private String updatedBy;
 
-    @Column(name = "updated_at", insertable = false)    
-    private Date updatedAt;
+    @LastModifiedDate
+    @Column(name = "updated_date")    
+    private Date updatedDate;
 
 }
