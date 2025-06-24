@@ -1,4 +1,4 @@
-package com.rsbank.account;
+package com.rsbank.card;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,8 +13,8 @@ import io.swagger.v3.oas.annotations.info.Info;
 @EnableJpaAuditing(auditorAwareRef = "auditorAwareImpl")
 @OpenAPIDefinition(
 		info = @Info(
-				title = "Accounts microservice REST API Documentation",
-				description = "RSBank Accounts microservice REST API Documentation",
+				title = "Card microservice REST API Documentation",
+				description = "RSBank Card microservice REST API Documentation",
 				version = "v1",
 				contact = @Contact(
 						name = "Sarathi Goswami",
@@ -22,14 +22,14 @@ import io.swagger.v3.oas.annotations.info.Info;
 				)
 		),
 		externalDocs = @ExternalDocumentation(
-				description =  "RSBank Accounts microservice REST API Documentation",
+				description =  "RSBank Card microservice REST API Documentation",
 				url = "https://www.eazybytes.com/swagger-ui.html"
 		)
 )
-public class AccountApplication {
+public class CardApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AccountApplication.class, args);
+		SpringApplication.run(CardApplication.class, args);
 	}
 
 }
