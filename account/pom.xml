@@ -12,6 +12,7 @@
 	<groupId>com.rsbank</groupId>
 	<artifactId>account</artifactId>
 	<version>0.1</version>
+	<packaging>jar</packaging>
 	<name>account</name>
 	<description>RS Bank Microservice for account</description>
 	<url />
