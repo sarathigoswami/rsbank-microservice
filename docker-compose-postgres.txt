@@ -1,0 +1,54 @@
+services:
+  rsbankdb:
+    image: bitnami/postgresql:latest
+    container_name: rsbankms-postgres
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: rsbank
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    networks:
+      - rsbankms
+  account:
+    image: rentcontrol/rsbankms-account:v1
+    container_name: rsbankms-account
+    ports:
+      - 8080:8080
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+    depends_on:
+      - rsbankdb
+    networks:
+      - rsbankms
+  loan:
+    image: rentcontrol/rsbankms-loan:v1
+    container_name: rsbankms-loan
+    ports:
+      - 8081:8081
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+    depends_on:
+      - rsbankdb
+    networks:
+      - rsbankms
+  card:
+    image: rentcontrol/rsbankms-card:v1
+    container_name: rsbankms-card
+    ports:
+      - 8082:8082
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+    depends_on:
+      - rsbankdb
+    networks:
+      - rsbankms
+networks:
+  rsbankms:
+    driver: bridge

@@ -84,7 +84,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleOtherException(Exception exception, WebRequest webRequest) {
-        String status = exception.getCause().getMessage();
+        String status = exception.getCause() != null ? exception.getCause().getMessage() : exception .getMessage();
         ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
                 webRequest.getDescription(false),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),

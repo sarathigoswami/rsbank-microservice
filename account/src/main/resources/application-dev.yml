@@ -1,11 +1,14 @@
+server:
+  port: 8080
 spring:
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/rsbank
-    username: postgres
+    url: jdbc:mysql://rsbankdb:3306/rsbank?useSSL=false
+    username: root
     password: root
-  jpa:        
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     show-sql: true
       
 logging:

@@ -40,7 +40,6 @@ public class CustomerDto {
     @Schema(
             description = "Account details of the Customer"
     )
-    @NotEmpty(message = Literals.NAL_BLANK)
     private AccountsDto accountsDto;
 
 }

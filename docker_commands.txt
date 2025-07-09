@@ -1,0 +1,69 @@
+docker build .<file-path> -t <username/image-name>:<version>
+docker images
+docker inspect <image_id_part>
+docker run -p <out_port>:<in_port> <username/container-name> (Ctrl + c) to stop
+docker run -d -p <out_port>:<in_port> <username/container-name> (detached mode)
+docker run -d -p <out_port>:<in_port> --name <username/container-name> <image-name>
+docker ps
+
+docker start <container_id_part>
+docker stop <container_id_part>
+
+docker image push docker.io/rentcontrol/rsbankms-loan:v1
+
+
+docker images						//To list all the docker images present in the Docker server
+docker image inspect [image-id]		//To display detailed image information for a given image id
+docker image rm [image-id]			//To remove one or more images for a given image ids
+docker build . -t [image-name]		//To generate a docker image based on a Dockerfile
+docker run -p [hostport]:[containerport] [image_name]		//To start a docker container based on a given image
+
+docker ps			//To show all running containers
+docker ps-a			//To show all containers including running and stopped
+
+docker container start [container-id]		//To start one or more stopped containers
+docker container pause [container-id]		//To pause all processes within one or more containers
+docker container unpause [container-id]		//To resume/unpause all processes within one or more containers
+docker container stop [container-id]		//To stop one or more running containers
+docker container kill [container-id]		//To kill one or more running containers instantly
+docker container restart [container-id]		//To restart one or more containers
+docker container inspect [container-id]		//To inspect all the details for a given container id
+docker container logs [container-id]		//To fetch the logs of a given container id
+docker container logs -f [container-id]		//To Follow log output of a given container id
+docker rm [container-id]					//To remove one or more containers based on container ids
+docker container prune						//To remove all stopped containers
+
+docker image push [container_registry/username:tag]		//To push an image from a container registry
+docker image pull [container_registry/username:tag]		//To pull an image from a container registry
+
+docker image prune			//To remove all unused images
+docker container stats		//To show all containers statistics like CPU, memory, I/O usage
+docker system prune			//Remove stopped containers, dangling images, and unused networks, volumes, and cache
+docker rmi [image-id]		//To remove one or more images based on image ids
+docker login-u [username]	//To login in to docker hub container registry
+
+docker logout						//To login out From docker hub container registry
+docker history [image-name]			//Displays the intermediate layers and commands that were executed when building the image
+docker exec-it [container-id] sh	//To open a shell inside a running container and execute commands
+
+docker compose up						//To create and start containers based on given docker compose File
+docker compose up -d					// Start in detached mode
+docker compose down						//To stop and remove containers for services defined in the Compose file
+docker-compose down -v                  //To stop containers and remove volumes
+docker compose stop						//To stop containers - will not delete the containers
+docker-compose restart [service_name]	//To restart stopped containers
+docker-compose ps						//To lists containers.
+docker-compose logs [service_name]		//To views output logs from containers.
+
+
+
+============= docker psql =========
+docker exec -it rsbankdb psql -U postgres -d rsbank
+select version();
+
+
+
+============ Docker image using mvn buildpack/google jib ===============
+mvn spring-boot:build-image -Dspring-boot.build-image.imageName=<sarathigoswami/rsbankms-loan>:<v1>
+
+mvn compile jib:dockerBuild
