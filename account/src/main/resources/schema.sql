@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS public.accounts (
 CREATE TABLE IF NOT EXISTS public.card (
     card_id bigserial NOT NULL,
     card_number character varying(16),
-    card_type character varying(10),
+    card_type character varying(20),
     mobile_number character varying(10),
     total_limit integer NOT NULL,
     available_amount integer NOT NULL,

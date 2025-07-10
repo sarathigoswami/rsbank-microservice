@@ -1,8 +1,7 @@
 spring:
   application:
-    name: rsbankaccounts
+    name: accounts
   profiles:
-    active: docker
-  sql:
-    init:
-      mode: always
+    active: dockdb
+  config:
+    import: configserver:http://localhost:8071/

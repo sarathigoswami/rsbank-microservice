@@ -1,5 +1,7 @@
 spring:
   application:
-    name: rsbankcards
+    name: cards
   profiles:
-    active: docker
+    active: dockdb
+  config:
+    import: configserver:http://localhost:8071/
