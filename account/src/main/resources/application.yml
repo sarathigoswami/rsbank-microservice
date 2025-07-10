@@ -1,5 +1,8 @@
 spring:
-  profiles:
-    active: dev
   application:
-    name: rsbank-accounts
+    name: rsbankaccounts
+  profiles:
+    active: docker
+  sql:
+    init:
+      mode: always

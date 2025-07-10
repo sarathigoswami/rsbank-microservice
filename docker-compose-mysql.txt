@@ -1,13 +1,18 @@
 services:
   rsbankdb:
-    image: bitnami/postgresql:latest
-    container_name: rsbankms-postgres
-    ports:
-      - 5433:5432
+    image: mysql # Use a specific MySQL version
+    container_name: rsbankms-mysql
     environment:
-      POSTGRES_DB: rsbank
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root # Replace with a strong password
+      MYSQL_DATABASE: rsbank # Optional: Name of the database to create
+      MYSQL_PASSWORD: root # Optional: Password for the user
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "rsbankdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - 3306:3306
     networks:
       - rsbankms
   account:
@@ -20,7 +25,8 @@ services:
         limits:
           memory: 256m
     depends_on:
-      - rsbankdb
+      rsbankdb:
+        condition: service_healthy
     networks:
       - rsbankms
   loan:
@@ -33,7 +39,8 @@ services:
         limits:
           memory: 256m
     depends_on:
-      - rsbankdb
+      rsbankdb:
+        condition: service_healthy
     networks:
       - rsbankms
   card:
@@ -46,7 +53,8 @@ services:
         limits:
           memory: 256m
     depends_on:
-      - rsbankdb
+      rsbankdb:
+        condition: service_healthy
     networks:
       - rsbankms
 networks:

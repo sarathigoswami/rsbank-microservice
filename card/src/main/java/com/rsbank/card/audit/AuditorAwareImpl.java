@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 @Component("auditorAwareImpl")
 public class AuditorAwareImpl implements AuditorAware<String> {
 
+    @SuppressWarnings("null")
     @Override
     public Optional<String> getCurrentAuditor() {
         return Optional.of("0000000000");

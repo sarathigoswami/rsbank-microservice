@@ -1,11 +1,11 @@
 server:
-  port: 8080
+  port: 8082
 spring:
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/rsbank
+    url: jdbc:postgresql://rsbankdb:5432/rsbank
     username: postgres
     password: root
-  jpa:
+  jpa: 
     hibernate:
       ddl-auto: none
     show-sql: true
@@ -15,12 +15,12 @@ logging:
     org:
       hibernate:
         sql: DEBUG
-
+        
 build:
-  version: "3.0"
+  version: "1.0"
 
-accounts:
-  message: "Welcome to RSBank accounts related local APIs "
+cards:
+  message: "Welcome to RSBank cards related docker APIs "
   contactDetails:
     name: "John Doe - Developer"
     email: "john@rsbank.com"

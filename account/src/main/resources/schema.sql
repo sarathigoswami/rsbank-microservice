@@ -1,4 +1,3 @@
-
 CREATE TABLE IF NOT EXISTS public.accounts (
     customer_id bigint NOT NULL,
     account_type character varying(2),
@@ -14,9 +13,9 @@ CREATE TABLE IF NOT EXISTS public.accounts (
 
 CREATE TABLE IF NOT EXISTS public.card (
     card_id bigserial NOT NULL,
-    card_number character varying(255),
-    card_type character varying(255),
-    mobile_number character varying(255),
+    card_number character varying(16),
+    card_type character varying(10),
+    mobile_number character varying(10),
     total_limit integer NOT NULL,
     available_amount integer NOT NULL,
     amount_used integer NOT NULL,
@@ -41,9 +40,9 @@ CREATE TABLE IF NOT EXISTS public.customer (
 
 CREATE TABLE IF NOT EXISTS public.loan (
     loan_id bigserial NOT NULL,
-    loan_number character varying(255),
-    loan_type character varying(255),
-    mobile_number character varying(255),
+    loan_number character varying(20),
+    loan_type character varying(10),
+    mobile_number character varying(10),
     total_loan integer NOT NULL,
     outstanding_amount integer NOT NULL,
     amount_paid integer NOT NULL,
