@@ -1,5 +1,0 @@
-spring:
-  application:
-    name: rsbankaccounts
-  profiles:
-    active: docker

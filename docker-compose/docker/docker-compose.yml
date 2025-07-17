@@ -1,0 +1,81 @@
+services:
+  configserver:
+    image: rentcontrol/rsbankms-configserver:v1
+    container_name: configserver
+    ports:
+      - 8071:8071
+    healthcheck:
+      test: "curl --fail --silent configserver:8071/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 2s
+    extends:
+      file: common-config.yml
+      service: microservice-base-config
+  rsbankdb:
+    image: bitnami/postgresql:latest
+    container_name: postgres
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: rsbank
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d rsbank"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+  account:
+    image: rentcontrol/rsbankms-account:v1
+    container_name: account
+    ports:
+      - 8080:8080
+    depends_on:
+      rsbankdb:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: accounts
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+  loan:
+    image: rentcontrol/rsbankms-loan:v1
+    container_name: loan
+    ports:
+      - 8081:8081
+    depends_on:
+      rsbankdb:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: loans
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+  card:
+    image: rentcontrol/rsbankms-card:v1
+    container_name: card
+    ports:
+      - 8082:8082
+    depends_on:
+      rsbankdb:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: cards
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+networks:
+  rsbankms:
+    driver: bridge

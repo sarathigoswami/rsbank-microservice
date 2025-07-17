@@ -21,7 +21,6 @@ logging:
 
 build:
   version: "2.0"
-
 loans:
   message: "Welcome to RSBank loan related local dev APIs "
   contactDetails:

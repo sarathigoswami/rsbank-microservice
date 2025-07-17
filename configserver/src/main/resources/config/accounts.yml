@@ -23,10 +23,10 @@ build:
   version: "2.0"
 
 accounts:
-  message: "Welcome to RSBank accounts related local APIs "
+  message: "Welcome to RSBank accounts related local dev APIs "
   contactDetails:
     name: "John Doe - Developer"
-    email: "john@rsbank.com"
+    email: "{cipher}39415ea0caaf781dd65c77ffe4e5370ded25ad49cc7e5b43885e42a9738d3ab8"
   onCallSupport:
     - (555)555-1234
     - (555)523-1345

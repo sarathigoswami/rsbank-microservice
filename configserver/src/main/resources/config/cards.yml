@@ -23,7 +23,7 @@ build:
   version: "2.0"
 
 cards:
-  message: "Welcome to RSBank cards related local APIs "
+  message: "Welcome to RSBank cards related local dev APIs "
   contactDetails:
     name: "John Doe - Developer"
     email: "john@rsbank.com"

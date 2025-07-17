@@ -2,13 +2,42 @@ spring:
   application:
     name: configserver
   profiles:
-    active: native
+    active: git
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:/config
+        #native:
+          #search-locations: classpath:/configgit:
+        git:
+          uri: https://github.com/sarathigoswami/rsbankms-config.git
+          default-label: main
+          timeout: 5
+          clone-on-start: true
+          force-pull: true
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+        
 
+encrypt:
+  key: FA9258376A7592B16D8274A3CA43A
 
 server:
   port: 8071
