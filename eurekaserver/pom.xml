@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.rsbank</groupId>
 	<artifactId>eurekaserver</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<name>eurekaserver</name>
 	<description>Service discovery agent for RS Bank Microservices</description>
 	<url/>
@@ -67,6 +67,16 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.6</version>
+				<configuration>
+					<to>
+						<image>rentcontrol/rsbankms-eureka:v1</image>
+					</to>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

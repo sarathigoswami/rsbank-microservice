@@ -13,6 +13,23 @@ services:
     extends:
       file: common-config.yml
       service: microservice-base-config
+  eurekaserver:
+    image: rentcontrol/rsbankms-eureka:v1
+    container_name: eurekaserver
+    ports:
+      - 8070:8070
+    healthcheck:
+      test: "curl --fail --silent eurekaserver:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 2s
+    depends_on:
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
   rsbankdb:
     image: bitnami/postgresql:latest
     container_name: postgres
@@ -41,11 +58,13 @@ services:
         condition: service_healthy
       configserver:
         condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: accounts
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eurekaserver-config
   loan:
     image: rentcontrol/rsbankms-loan:v1
     container_name: loan
@@ -56,11 +75,13 @@ services:
         condition: service_healthy
       configserver:
         condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: loans
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eurekaserver-config
   card:
     image: rentcontrol/rsbankms-card:v1
     container_name: card
@@ -71,11 +92,13 @@ services:
         condition: service_healthy
       configserver:
         condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: cards
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eurekaserver-config
 networks:
   rsbankms:
     driver: bridge
