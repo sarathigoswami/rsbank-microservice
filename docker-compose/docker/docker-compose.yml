@@ -19,7 +19,7 @@ services:
     ports:
       - 8070:8070
     healthcheck:
-      test: "curl --fail --silent eurekaserver:8070/actuator/health/readiness | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
@@ -53,6 +53,12 @@ services:
     container_name: account
     ports:
       - 8080:8080
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 2s
     depends_on:
       rsbankdb:
         condition: service_healthy
@@ -70,6 +76,12 @@ services:
     container_name: loan
     ports:
       - 8081:8081
+    healthcheck:
+      test: "curl --fail --silent localhost:8081/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 2s
     depends_on:
       rsbankdb:
         condition: service_healthy
@@ -87,6 +99,12 @@ services:
     container_name: card
     ports:
       - 8082:8082
+    healthcheck:
+      test: "curl --fail --silent localhost:8082/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 2s
     depends_on:
       rsbankdb:
         condition: service_healthy
@@ -96,6 +114,23 @@ services:
         condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: cards
+    extends:
+      file: common-config.yml
+      service: microservice-eurekaserver-config
+  gatewayserver:
+    image: rentcontrol/rsbankms-gateway:v1
+    container_name: gatewayserver
+    ports:
+      - 8072:8072
+    depends_on:
+      account:
+        condition: service_healthy
+      card:
+        condition: service_healthy
+      loan:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: gatewayserver
     extends:
       file: common-config.yml
       service: microservice-eurekaserver-config

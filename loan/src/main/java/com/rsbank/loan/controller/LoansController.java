@@ -1,5 +1,7 @@
 package com.rsbank.loan.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +46,8 @@ public class LoansController {
         private final Environment environment;
         private final LoanContactInfoDto loanContactInfoDto;
 
+    private static final Logger logger = LoggerFactory.getLogger(LoansController.class);
+
         @Value("${build.version}")
         private String buildVersion;
 
@@ -67,7 +72,10 @@ public class LoansController {
         })
         @GetMapping("/fetch")
         public ResponseEntity<LoanDto> fetchLoanDetails(
+                        @RequestHeader("rsbank-correlation-id") String correlationId,
                         @RequestParam @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits") String mobileNumber) {
+
+                logger.debug("rsbank-correlation-id found in LoansController : {}", correlationId);
                 LoanDto loanDto = iLoanService.fetchLoan(mobileNumber);
                 return ResponseEntity.status(HttpStatus.OK).body(loanDto);
         }

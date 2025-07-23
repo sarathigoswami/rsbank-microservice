@@ -4,6 +4,6 @@ import com.rsbank.account.dto.CustomerDetailsDto;
 
 public interface ICustomerService {
 
-    public CustomerDetailsDto fetchCustomerDetails(String mobileNumber);
+    public CustomerDetailsDto fetchCustomerDetails(String mobileNumber, String correlationId);
 
 }
